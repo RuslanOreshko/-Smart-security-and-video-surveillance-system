@@ -1,0 +1,6 @@
+@SmartSecuritySystem.WebAPI_HostAddress = http://localhost:5108
+
+GET {{SmartSecuritySystem.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
