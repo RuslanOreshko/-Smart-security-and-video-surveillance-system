@@ -2,6 +2,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartSecuritySystem.Domain\SmartSecuritySystem.Domain.csproj" />
+    <ProjectReference Include="..\SmartSecuritySystem.Application\SmartSecuritySystem.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
