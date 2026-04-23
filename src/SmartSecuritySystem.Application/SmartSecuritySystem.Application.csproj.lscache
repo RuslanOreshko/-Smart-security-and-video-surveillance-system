@@ -53,10 +53,14 @@ TemporaryDependencyNodeTargetIdentifier=net9.0
 /warnaserror+:NU1605,SYSLIB0011
 
 [sourceFiles]
+Abstractions/
+ INotificationService.cs
+ ISecurityService.cs
 obj/Debug/net9.0/
  .NETCoreApp,Version=v9.0.AssemblyAttributes.cs
  SmartSecuritySystem.Application.AssemblyInfo.cs
  SmartSecuritySystem.Application.GlobalUsings.g.cs
+Services/SecurityService.cs
 
 [metadataReferences]
 ../SmartSecuritySystem.Domain/obj/Debug/net9.0/ref/SmartSecuritySystem.Domain.dll
