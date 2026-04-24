@@ -9,6 +9,9 @@ public sealed class SecurityService : ISecurityService
 {
     private readonly SecuritySystem _system;
     private readonly INotificationService _notification;
+    private DateTime _lastAlertTime = DateTime.MinValue;
+    private DateTime _lastMotionTime = DateTime.MinValue;
+    private bool _motionActive = false;
 
     public SecurityService(
         SecuritySystem system,
@@ -18,15 +21,17 @@ public sealed class SecurityService : ISecurityService
         _system = system;
         _notification = notification;
 
-        _system.OnAlarmTriggered += async (msg) =>
+        _system.OnAlarmTriggered += msg =>
         {
-            await _notification.SendAsync(msg);
+            _notification.SendAsync(msg);
         }; 
+        Task.Run(CheckMotionLoop);
     }
 
     public void HandleMotion()
     {
-        _system.ProcessMotion();
+        _motionActive = true;
+        _lastMotionTime = DateTime.Now;
     }
 
     public void ArmSystem()
@@ -37,5 +42,26 @@ public sealed class SecurityService : ISecurityService
     public void DisarmSystem()
     {
         _system.SetState(new DisarmedState());
+    }
+
+    private async Task CheckMotionLoop()
+    {
+        while (true)
+        {
+            if(_motionActive && 
+            (DateTime.Now - _lastMotionTime).TotalSeconds > 2)
+            {
+                _motionActive = false;
+            }
+
+            if(_motionActive &&
+            (DateTime.Now - _lastAlertTime).TotalSeconds >= 5)
+            {
+                _system.ProcessMotion();
+                _lastAlertTime = DateTime.Now;
+            }
+
+            await Task.Delay(200);
+        }
     }
 }
