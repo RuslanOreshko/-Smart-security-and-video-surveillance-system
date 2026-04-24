@@ -25,6 +25,10 @@ public sealed class SecurityService : ISecurityService
         {
             _notification.SendAsync(msg);
         }; 
+    }
+
+    public void Start()
+    {
         Task.Run(CheckMotionLoop);
     }
 
