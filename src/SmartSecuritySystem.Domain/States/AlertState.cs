@@ -4,7 +4,10 @@ namespace SmartSecuritySystem.Domain.States;
 
 public class AlertState : ISecurityState
 {
-    public void HandleMotion(SecuritySystem context){}
+    public void HandleMotion(SecuritySystem context)
+    {
+        context.TriggerAlarm("ALARM! Motion продовжується!");
+    }
 
     public void Enter(SecuritySystem context)
     {

@@ -6,6 +6,7 @@ public class SecuritySystem
 {
     private ISecurityState _state;
 
+
     public event Action<string>? OnAlarmTriggered;
 
     public SecuritySystem()
