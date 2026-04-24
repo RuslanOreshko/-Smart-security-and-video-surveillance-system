@@ -1,40 +1,46 @@
 using OpenCvSharp;
+using SmartSecuritySystem.Application.Abstraction;
+using SmartSecuritySystem.Infrastructure.Video;
 
 namespace SmartSecuritySystem.Infrastructure.Detection;
 
-public class MotionDetector 
+public class OpenCvMotionDetector : IMotionDetected
 {
     public event Action? MotionDetected;
 
-    private VideoCapture _capture;
+    public readonly CameraStreamService _camera;
     private Mat _previousFrame = new Mat();
+    private bool _running = false;
     
-    public MotionDetector()
+    public OpenCvMotionDetector(CameraStreamService camera)
     {
-        _capture = new VideoCapture(0, VideoCaptureAPIs.DSHOW);
+        _camera = camera;
     }
 
     public void Start()
     {
-        if (!_capture.IsOpened())
-        {
-            throw new Exception("Camera not found");
-        }
+        _camera.Start();
 
-        _capture.Read(_previousFrame);
+        _previousFrame = _camera.GetFrame();
+        _running = true;
 
         Task.Run(Process);
     }
 
+    public void Stop()
+    {
+        _running = false;
+        _camera.Stop();
+    }
+
     private void Process()
     {
-        var currentFrame = new Mat();
-        var diff = new Mat();
         int frameCount = 0;
 
-        while (true)
+        while (_running)
         {
-            _capture.Read(currentFrame);
+            var currentFrame = _camera.GetFrame();
+            var diff = new Mat();
 
             if (currentFrame.Empty())
                 continue;
@@ -50,11 +56,8 @@ public class MotionDetector
             }
 
             Cv2.Absdiff(_previousFrame, currentFrame, diff);
-
             Cv2.GaussianBlur(diff, diff, new Size(5, 5), 0);
-
             Cv2.CvtColor(diff, diff, ColorConversionCodes.BGR2GRAY);
-
             Cv2.Threshold(diff, diff, 25, 255, ThresholdTypes.Binary);
 
             int motionPixels = Cv2.CountNonZero(diff);

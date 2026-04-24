@@ -54,6 +54,7 @@ TemporaryDependencyNodeTargetIdentifier=net9.0
 
 [sourceFiles]
 Abstractions/
+ IMotionDetected.cs
  INotificationService.cs
  ISecurityService.cs
 obj/Debug/net9.0/

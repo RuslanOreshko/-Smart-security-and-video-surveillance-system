@@ -53,12 +53,13 @@ TemporaryDependencyNodeTargetIdentifier=net9.0
 /warnaserror+:NU1605,SYSLIB0011
 
 [sourceFiles]
-Detection/MotionDetector.cs
+Detection/OpenCvMotionDetector.cs
 Notifications/ConsoleNotificationService.cs
 obj/Debug/net9.0/
  .NETCoreApp,Version=v9.0.AssemblyAttributes.cs
  SmartSecuritySystem.Infrastructure.AssemblyInfo.cs
  SmartSecuritySystem.Infrastructure.GlobalUsings.g.cs
+Video/CameraStreamService.cs
 
 [metadataReferences]
 ../
