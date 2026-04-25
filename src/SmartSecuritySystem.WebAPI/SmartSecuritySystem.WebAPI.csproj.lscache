@@ -371,7 +371,9 @@ Program.cs
 <NUGET>/
  microsoft.aspnetcore.openapi/9.0.15/lib/net9.0/Microsoft.AspNetCore.OpenApi.dll
  microsoft.openapi/1.6.17/lib/netstandard2.0/Microsoft.OpenApi.dll
+ newtonsoft.json/11.0.2/lib/netstandard2.0/Newtonsoft.Json.dll
  opencvsharp4/4.13.0.20260330/lib/net8.0/OpenCvSharp.dll
+ system.net.websockets.websocketprotocol/5.1.0/lib/net6.0/System.Net.WebSockets.WebSocketProtocol.dll
 
 [analyzerReferences]
 <DOTNET>/packs/Microsoft.AspNetCore.App.Ref/9.0.15/analyzers/dotnet/cs/

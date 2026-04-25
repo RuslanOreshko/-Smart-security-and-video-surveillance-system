@@ -1,16 +1,36 @@
 using SmartSecuritySystem.Application.Abstraction;
 using SmartSecuritySystem.Application.Services;
-using SmartSecuritySystem.Domain.Entities;
 using SmartSecuritySystem.Infrastructure.Detection;
 using SmartSecuritySystem.Infrastructure.Notification;
 using SmartSecuritySystem.Infrastructure.Video;
+using SmartSecuritySystem.Infrastructure.Hubs;
+using SmartSecuritySystem.Domain.Entities;
 
-var system = new SecuritySystem();
-var notification = new ConsoleNotificationService();
-var service = new SecurityService(system, notification);
+var builder = WebApplication.CreateBuilder(args);
 
-var camera = new CameraStreamService();
-IMotionDetected detector = new OpenCvMotionDetector(camera);
+builder.Services.AddSignalR();
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(policy =>
+    {
+        policy.AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowAnyOrigin();
+    });
+});
+
+builder.Services.AddSingleton<SecuritySystem>();
+builder.Services.AddSingleton<INotificationService, SignalRNotificationService>();
+builder.Services.AddSingleton<ISecurityService, SecurityService>();
+
+builder.Services.AddSingleton<CameraStreamService>();
+builder.Services.AddSingleton<IMotionDetected, OpenCvMotionDetector>();
+
+var app = builder.Build();
+
+var detector = app.Services.GetRequiredService<IMotionDetected>();
+var service = app.Services.GetRequiredService<ISecurityService>();
 
 detector.MotionDetected += () =>
 {
@@ -19,24 +39,12 @@ detector.MotionDetected += () =>
 
 service.Start();
 service.ArmSystem();
-
 detector.Start();
 
-Console.ReadLine();
+app.UseCors();
+app.UseStaticFiles();
 
-// var builder = WebApplication.CreateBuilder(args);
+app.MapHub<NotificationHub>("/hubs/notifications");
 
-// builder.Services.AddOpenApi();
-
-
-// var app = builder.Build();
-
-// if (app.Environment.IsDevelopment())
-// {
-//     app.MapOpenApi();
-// }
-
-// app.UseHttpsRedirection();
-
-// app.Run();
+app.Run();
 

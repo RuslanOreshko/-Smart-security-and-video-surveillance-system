@@ -6,6 +6,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR" Version="1.2.9" />
     <PackageReference Include="OpenCvSharp4" Version="4.13.0.20260330" />
     <PackageReference Include="OpenCvSharp4.runtime.win" Version="4.13.0.20260302" />
   </ItemGroup>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>SignalR</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/microsoft-signalr/7.0.5/signalr.min.js"></script>
+</head>
+<body>
+    
+    <h1>Noification</h1>
+
+    <script>
+        const connection = new signalR.HubConnectionBuilder()
+            .withUrl("http://localhost:5108/hubs/notifications")
+            .build();
+
+        connection.on("ReceiveNotification", (message) => {
+            console.log("Notification:", message);
+        });
+
+        connection.start()
+            .then(() => console.log("Connected to SignalR"))
+            .catch(err => console.error(err));
+    </script>
+</body>
+</html>

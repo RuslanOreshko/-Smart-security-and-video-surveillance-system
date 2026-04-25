@@ -54,7 +54,10 @@ TemporaryDependencyNodeTargetIdentifier=net9.0
 
 [sourceFiles]
 Detection/OpenCvMotionDetector.cs
-Notifications/ConsoleNotificationService.cs
+Hubs/NotificationHub.cs
+Notifications/
+ ConsoleNotificationService.cs
+ SignalRNotificationService.cs
 obj/Debug/net9.0/
  .NETCoreApp,Version=v9.0.AssemblyAttributes.cs
  SmartSecuritySystem.Infrastructure.AssemblyInfo.cs
@@ -230,7 +233,40 @@ Video/CameraStreamService.cs
  System.Xml.XPath.dll
  System.Xml.XPath.XDocument.dll
  WindowsBase.dll
-<NUGET>/opencvsharp4/4.13.0.20260330/lib/net8.0/OpenCvSharp.dll
+<NUGET>/
+ microsoft.aspnetcore.authentication.abstractions/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Authentication.Abstractions.dll
+ microsoft.aspnetcore.authorization.policy/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Authorization.Policy.dll
+ microsoft.aspnetcore.authorization/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Authorization.dll
+ microsoft.aspnetcore.connections.abstractions/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Connections.Abstractions.dll
+ microsoft.aspnetcore.hosting.abstractions/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Hosting.Abstractions.dll
+ microsoft.aspnetcore.hosting.server.abstractions/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Hosting.Server.Abstractions.dll
+ microsoft.aspnetcore.http.abstractions/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Http.Abstractions.dll
+ microsoft.aspnetcore.http.connections.common/1.2.0/lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.Common.dll
+ microsoft.aspnetcore.http.connections/1.2.0/lib/netstandard2.0/Microsoft.AspNetCore.Http.Connections.dll
+ microsoft.aspnetcore.http.extensions/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Http.Extensions.dll
+ microsoft.aspnetcore.http.features/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Http.Features.dll
+ microsoft.aspnetcore.http/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Http.dll
+ microsoft.aspnetcore.routing.abstractions/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Routing.Abstractions.dll
+ microsoft.aspnetcore.routing/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.Routing.dll
+ microsoft.aspnetcore.signalr.common/1.2.0/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Common.dll
+ microsoft.aspnetcore.signalr.core/1.2.0/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Core.dll
+ microsoft.aspnetcore.signalr.protocols.json/1.2.0/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.Protocols.Json.dll
+ microsoft.aspnetcore.signalr/1.2.9/lib/netstandard2.0/Microsoft.AspNetCore.SignalR.dll
+ microsoft.aspnetcore.websockets/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.WebSockets.dll
+ microsoft.aspnetcore.webutilities/2.3.0/lib/netstandard2.0/Microsoft.AspNetCore.WebUtilities.dll
+ microsoft.extensions.configuration.abstractions/8.0.0/lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll
+ microsoft.extensions.dependencyinjection.abstractions/8.0.2/lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+ microsoft.extensions.diagnostics.abstractions/8.0.1/lib/net8.0/Microsoft.Extensions.Diagnostics.Abstractions.dll
+ microsoft.extensions.fileproviders.abstractions/8.0.0/lib/net8.0/Microsoft.Extensions.FileProviders.Abstractions.dll
+ microsoft.extensions.hosting.abstractions/8.0.1/lib/net8.0/Microsoft.Extensions.Hosting.Abstractions.dll
+ microsoft.extensions.logging.abstractions/8.0.2/lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll
+ microsoft.extensions.objectpool/8.0.11/lib/net8.0/Microsoft.Extensions.ObjectPool.dll
+ microsoft.extensions.options/8.0.2/lib/net8.0/Microsoft.Extensions.Options.dll
+ microsoft.extensions.primitives/8.0.0/lib/net8.0/Microsoft.Extensions.Primitives.dll
+ microsoft.net.http.headers/2.3.0/lib/netstandard2.0/Microsoft.Net.Http.Headers.dll
+ newtonsoft.json/11.0.2/lib/netstandard2.0/Newtonsoft.Json.dll
+ opencvsharp4/4.13.0.20260330/lib/net8.0/OpenCvSharp.dll
+ system.net.websockets.websocketprotocol/5.1.0/lib/net6.0/System.Net.WebSockets.WebSocketProtocol.dll
 
 [analyzerReferences]
 <DOTNET>/packs/Microsoft.NETCore.App.Ref/9.0.15/analyzers/dotnet/cs/
@@ -243,6 +279,9 @@ Video/CameraStreamService.cs
 <DOTNET>/sdk/10.0.203/Sdks/Microsoft.NET.Sdk/analyzers/
  Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll
  Microsoft.CodeAnalysis.NetAnalyzers.dll
+<NUGET>/
+ microsoft.extensions.logging.abstractions/8.0.2/analyzers/dotnet/roslyn4.4/cs/Microsoft.Extensions.Logging.Generators.dll
+ microsoft.extensions.options/8.0.2/analyzers/dotnet/roslyn4.4/cs/Microsoft.Extensions.Options.SourceGeneration.dll
 
 [analyzerConfigFiles]
 <DOTNET>/sdk/10.0.203/Sdks/Microsoft.NET.Sdk/analyzers/build/config/analysislevel_9_default.globalconfig
