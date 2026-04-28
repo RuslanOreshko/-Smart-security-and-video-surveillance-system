@@ -1,13 +1,13 @@
 using Microsoft.AspNetCore.Mvc;
-using SmartSecuritySystem.Application.Services;
+using SmartSecuritySystem.Application.Abstraction;
 
 [ApiController]
 [Route("api/security")]
 public class SecurityController : ControllerBase
 {
-    private readonly SecurityService _security;
+    private readonly ISecurityService _security;
 
-    public SecurityController(SecurityService security)
+    public SecurityController(ISecurityService security)
     {
         _security = security;
     }

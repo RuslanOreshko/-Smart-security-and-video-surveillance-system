@@ -12,3 +12,20 @@ button {
 #logs {
   margin-top: 20px;
 }
+
+#status {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.alarm {
+  color: red;
+}
+
+.safe {
+  color: green;
+}
+
+.disarm {
+  color: gray;
+}
