@@ -8,6 +8,8 @@ using SmartSecuritySystem.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddControllers();
+
 builder.Services.AddSignalR();
 
 builder.Services.AddCors(options =>
@@ -43,6 +45,8 @@ detector.Start();
 
 app.UseCors();
 app.UseStaticFiles();
+
+app.MapControllers();
 
 app.MapHub<NotificationHub>("/hubs/notifications");
 
