@@ -4,6 +4,7 @@ using SmartSecuritySystem.Infrastructure.Detection;
 using SmartSecuritySystem.Infrastructure.Notification;
 using SmartSecuritySystem.Infrastructure.Video;
 using SmartSecuritySystem.Infrastructure.Hubs;
+using SmartSecuritySystem.Infrastructure.Storages;
 using SmartSecuritySystem.Domain.Entities;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,6 +29,8 @@ builder.Services.AddSingleton<ISecurityService, SecurityService>();
 
 builder.Services.AddSingleton(new CameraStreamService(0));
 builder.Services.AddSingleton<IMotionDetected, FaceOpenCvMotionDetector>();
+
+builder.Services.AddSingleton<IAlarmStore, InMemoryAlarmStore>();
 
 var app = builder.Build();
 

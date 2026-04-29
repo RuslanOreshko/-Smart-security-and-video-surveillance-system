@@ -7,16 +7,21 @@
   </head>
 
   <body>
-    <h1>Security system</h1>
+    <div class="container">
+      <h1>Smart Security</h1>
 
-    <div class="controls">
-      <button id="armBtn">ARM</button>
-      <button id="disarmBtn">DISARM</button>
+      <div id="status" class="status safe">SAFE</div>
+
+      <div class="controls">
+        <button id="armBtn" class="btn arm">ARM</button>
+        <button id="disarmBtn" class="btn disarm">DISARM</button>
+      </div>
+
+      <div class="history">
+        <h2>History</h2>
+        <ul id="logs"></ul>
+      </div>
     </div>
-
-    <h2 id="status">SAFE</h2>
-    <h2>Logs</h2>
-    <ul id="logs"></ul>
 
     <script src="app.js"></script>
   </body>

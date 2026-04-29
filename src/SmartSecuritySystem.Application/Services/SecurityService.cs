@@ -8,23 +8,25 @@ namespace SmartSecuritySystem.Application.Services;
 public sealed class SecurityService : ISecurityService
 {
     private readonly SecuritySystem _system;
+    private readonly IAlarmStore _alarmStore;
+
     private readonly INotificationService _notification;
-    private DateTime _lastAlertTime = DateTime.MinValue;
     private DateTime _lastMotionTime = DateTime.MinValue;
-    private bool _motionActive = false;
+
+    private bool _alarmActive = false;
+    
 
     public SecurityService(
         SecuritySystem system,
-        INotificationService notification
+        INotificationService notification,
+        IAlarmStore alarmStore
     )
     {
         _system = system;
         _notification = notification;
+        _alarmStore = alarmStore;
 
-        _system.OnAlarmTriggered += msg =>
-        {
-            _notification.SendAsync(msg);
-        }; 
+        _system.OnMotion += HandleMotion; 
     }
 
     public void Start()
@@ -34,8 +36,15 @@ public sealed class SecurityService : ISecurityService
 
     public void HandleMotion()
     {
-        _motionActive = true;
         _lastMotionTime = DateTime.Now;
+
+        if (!_alarmActive)
+        {
+            _alarmStore.Start();
+            _alarmActive  = true;
+
+            _notification.SendAsync("ALARM_START");
+        }
     }
 
     public void ArmSystem()
@@ -46,23 +55,27 @@ public sealed class SecurityService : ISecurityService
     public void DisarmSystem()
     {
         _system.SetState(new DisarmedState());
+
+        if (_alarmActive )
+        {
+            _alarmStore.End();
+            _alarmActive  = false;
+
+            _notification.SendAsync("DISARM");
+        }
     }
 
     private async Task CheckMotionLoop()
     {
         while (true)
         {
-            if(_motionActive && 
-            (DateTime.Now - _lastMotionTime).TotalSeconds > 2)
+            if(_alarmActive  && 
+            (DateTime.Now - _lastMotionTime).TotalSeconds > 5)
             {
-                _motionActive = false;
-            }
+                _alarmStore.End();
+                _alarmActive  = false;
 
-            if(_motionActive &&
-            (DateTime.Now - _lastAlertTime).TotalSeconds >= 5)
-            {
-                _system.ProcessMotion();
-                _lastAlertTime = DateTime.Now;
+                _notification.SendAsync("ALARM_END");
             }
 
             await Task.Delay(200);

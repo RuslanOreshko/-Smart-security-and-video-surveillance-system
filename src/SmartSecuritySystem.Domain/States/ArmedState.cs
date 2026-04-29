@@ -6,7 +6,7 @@ public class ArmedState : ISecurityState
 {
     public void HandleMotion(SecuritySystem context)
     {
-        context.SetState(new AlertState());
+        context.RaiseMotion();
     }
 
     public void Enter(SecuritySystem context)

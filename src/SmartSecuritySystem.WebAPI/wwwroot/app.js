@@ -2,20 +2,34 @@ const logs = document.getElementById("logs");
 const status = document.getElementById("status");
 
 let lastMotionTime = Date.now();
+let currentAlarm = null;
 
 const connection = new signalR.HubConnectionBuilder()
   .withUrl("/hubs/notifications")
   .build();
 
-connection.on("ReceiveNotification", (message) => {
-  lastMotionTime = Date.now();
+connection.on("ReceiveNotification", (msg) => {
+  const now = new Date().toLocaleTimeString();
 
-  status.textContent = "ALARM!!!!!!!!!!!!!!";
-  status.className = "alarm";
+  if (msg === "ALARM_START") {
+    status.textContent = "ALARM";
+    status.className = "alarm";
 
-  const li = document.createElement("li");
-  li.textContent = message;
-  logs.appendChild(li);
+    currentAlarm = document.createElement("li");
+    currentAlarm.textContent = `${now} - ...`;
+    logs.prepend(currentAlarm);
+  } else if (msg === "ALARM_END") {
+    status.textContent = "SAFE";
+    status.className = "safe";
+
+    if (currentAlarm) {
+      currentAlarm.textContent = currentAlarm.textContent.replace("...", now);
+      currentAlarm = null;
+    }
+  } else if (msg === "DISARM") {
+    status.textContent = "OFF";
+    status.className = "disarm";
+  }
 });
 
 setInterval(() => {

@@ -1,14 +1,17 @@
 using OpenCvSharp;
 using SmartSecuritySystem.Application.Abstraction;
+using SmartSecuritySystem.Domain.Entities;
 using SmartSecuritySystem.Infrastructure.Video;
 
 namespace SmartSecuritySystem.Infrastructure.Detection;
 
 public class FaceOpenCvMotionDetector : IMotionDetected
 {
+    public readonly CameraStreamService _camera;
+    private readonly SecuritySystem _system;
+
     public event Action? MotionDetected;
 
-    public readonly CameraStreamService _camera;
     private bool _running = false;
     private CascadeClassifier _faceCascade;
     private DateTime _lastDetectionTime = DateTime.MinValue;
@@ -16,9 +19,10 @@ public class FaceOpenCvMotionDetector : IMotionDetected
 
 
     
-    public FaceOpenCvMotionDetector(CameraStreamService camera)
+    public FaceOpenCvMotionDetector(CameraStreamService camera, SecuritySystem system)
     {
         _camera = camera;
+        _system = system;
         _faceCascade = new CascadeClassifier(Path.Combine(AppContext.BaseDirectory, "haarcascade_frontalface_default.xml"));
     }
 
@@ -85,11 +89,10 @@ public class FaceOpenCvMotionDetector : IMotionDetected
                 _faceFrames = 0;
             }
 
-            if(_faceFrames >= 3 &&
-                (DateTime.Now - _lastDetectionTime).TotalSeconds > 1)
+            if(_faceFrames >= 3)
             {
 
-                MotionDetected?.Invoke();
+                _system.ProcessMotion();
                 _lastDetectionTime = DateTime.Now;
             }
         
