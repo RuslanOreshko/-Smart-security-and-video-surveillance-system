@@ -6,11 +6,17 @@ namespace SmartSecuritySystem.Infrastructure.Video;
 public class CameraStreamService
 {
     private VideoCapture? _capture;
+    private int _cameraIndex;
+
+    public CameraStreamService(int cameraIndex = 0)
+    {
+        _cameraIndex = cameraIndex;
+    }
 
 
     public void Start()
     {
-        _capture = new VideoCapture(0, VideoCaptureAPIs.DSHOW);
+        _capture = new VideoCapture(_cameraIndex, VideoCaptureAPIs.DSHOW);
 
         if (!_capture.IsOpened())
         {

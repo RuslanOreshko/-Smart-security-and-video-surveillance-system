@@ -26,8 +26,8 @@ builder.Services.AddSingleton<SecuritySystem>();
 builder.Services.AddSingleton<INotificationService, SignalRNotificationService>();
 builder.Services.AddSingleton<ISecurityService, SecurityService>();
 
-builder.Services.AddSingleton<CameraStreamService>();
-builder.Services.AddSingleton<IMotionDetected, OpenCvMotionDetector>();
+builder.Services.AddSingleton(new CameraStreamService(0));
+builder.Services.AddSingleton<IMotionDetected, FaceOpenCvMotionDetector>();
 
 var app = builder.Build();
 

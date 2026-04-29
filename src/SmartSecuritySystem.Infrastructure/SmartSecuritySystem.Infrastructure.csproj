@@ -1,6 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <None Include="haarcascade_frontalface_default.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <ProjectReference Include="..\SmartSecuritySystem.Domain\SmartSecuritySystem.Domain.csproj" />
     <ProjectReference Include="..\SmartSecuritySystem.Application\SmartSecuritySystem.Application.csproj" />
   </ItemGroup>
